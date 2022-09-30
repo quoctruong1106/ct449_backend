@@ -16,7 +16,7 @@ class ContactService {
             favorite: payload.favorite,
         };
         //Remove underfined fields
-        Objects.keys(contact).forEach(
+        Object.keys(contact).forEach(
             (key) => contact[key] === undefined && delete contact[key]
         );
         return contact;
@@ -30,11 +30,12 @@ class ContactService {
             { returnDocument: "after", upsert: true }
         );
         return result.value;
+        
     }
 
     async find(filter) {
-        const cusor = await this.Contact.find(filter);
-        return await cusor.toArray();
+        const cursor = await this.Contact.find(filter);
+        return await cursor.toArray();
     }
 
     async findByName(name){
@@ -63,7 +64,7 @@ class ContactService {
     }
 
     async delete(id){
-        const result = await this.Contact.findOneAndUpdate({
+        const result = await this.Contact.findOneAndDelete({
             _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
         });
         return result.value;

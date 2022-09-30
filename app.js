@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const ApiError = require("./app/api-error");
+const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -8,6 +9,7 @@ const contactsRouter = require("./app/routes/contact.routes")
 
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false}));
 app.use("/api/contacts", contactsRouter);
 
 // handle 404 response
